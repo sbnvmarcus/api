@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=big5">
+    <script type="text/javascript">
+var rI;
+
+function refreshImage()
+{
+	img = document.getElementById("img001");
+	img.src="http://charts.aastocks.com/servlet/Charts?scheme=1&com=100&chartwidth=800&chartheight=450&stockid=" + this.getOptionID() + "&period=" + document.date.period_id.value + "&type=1&Indicator=1&indpara1=15&indpara2=45&indpara3=0&indpara4=0&indpara5=0&subChart1=1&ref1para1=0&ref1para2=0&ref1para3=0&fontsize=12&15MinDelay=T&lang=1&titlestyle=1&subChart2=2&ref2para1=" + document.date.rsi1.value + "&?" + Math.random();
+	if (document.date.period_id.value=="0" || document.date.period_id.value=="5007") {
+		img = document.getElementById("img002");
+		img.src="http://charts.aastocks.com/servlet/Charts?scheme=1&com=100&chartwidth=800&chartheight=450&stockid=" + this.getOptionID() + "&period=5&type=1&Indicator=1&indpara1=15&indpara2=45&indpara3=0&indpara4=0&indpara5=0&subChart1=1&ref1para1=0&ref1para2=0&ref1para3=0&fontsize=12&15MinDelay=T&lang=1&titlestyle=1&?" + Math.random();
+		showstuff("SupText");
+		showstuff("SupImg");
+	}
+	if(document.date.timer_id.value != "0") {
+		settime();
+	}
+	else {
+		window.clearInterval(rI);
+	}
+}function getOptionID(){	var optionId = document.date.options_id.value;	if(optionId === "221000.HK.N"){		optionId = "221000.HK&AHFT=T";	} else if(optionId === "221006.HK.N"){		optionId = "221006.HK&AHFT=T";	} else if(optionId === "221002.HK.N"){		optionId = "221002.HK&AHFT=T";	} else if(optionId === "221007.HK.N"){		optionId = "221007.HK&AHFT=T";	}	return optionId;}
+
+function refreshOptions() 
+{ 
+	img = document.getElementById("img001");	
+	img.src="http://charts.aastocks.com/servlet/Charts?scheme=1&com=100&chartwidth=800&chartheight=450&stockid=" + this.getOptionID() + "&period=" + document.date.period_id.value + "&type=1&Indicator=1&indpara1=15&indpara2=45&indpara3=0&indpara4=0&indpara5=0&subChart1=1&ref1para1=0&ref1para2=0&ref1para3=0&fontsize=12&15MinDelay=T&lang=1&titlestyle=1&subChart2=2&ref2para1=" + document.date.rsi1.value + "&";
+	if (document.date.period_id.value=="0" || document.date.period_id.value=="5007") {
+		img = document.getElementById("img002");
+		img.src="http://charts.aastocks.com/servlet/Charts?scheme=1&com=100&chartwidth=800&chartheight=450&stockid=" + this.getOptionID() + "&period=5&type=1&Indicator=1&indpara1=15&indpara2=45&indpara3=0&indpara4=0&indpara5=0&subChart1=1&ref1para1=0&ref1para2=0&ref1para3=0&fontsize=12&15MinDelay=T&lang=1&titlestyle=1&";
+		showstuff("SupText");
+		showstuff("SupImg");
+	}
+	if(document.date.timer_id.value != "0") {
+		window.clearInterval(rI);
+		rI = window.setInterval(refreshImage, document.date.timer_id.value);
+	}
+}
+
+function settime () {
+  var curtime = new Date();
+  var curhour = curtime.getHours();
+  var curmin = curtime.getMinutes();
+  var cursec = curtime.getSeconds();
+  var time = "";
+ 
+  time = (curhour < 10 ? "0" : "") + curhour + ":" +
+         (curmin < 10 ? "0" : "") + curmin + ":" +
+         (cursec < 10 ? "0" : "") + cursec;
+ 
+  document.date.clock.value = "Last refresh : " + time;
+}
+
+function showstuff(boxid){
+   document.getElementById(boxid).style.visibility="visible";
+   document.getElementById(boxid).style.overflow="hidden";
+}
+
+function hidestuff(boxid){
+   document.getElementById(boxid).style.visibility="hidden";
+}
+
+    </script>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+</head>
+<body id="htmlbody">
+<form name="date">　
+    <select id="options_id" name="options_id" onChange="javascript:refreshOptions(this);">
+        <option value="221000.HK" selected>即月期指</option>
+ 	<option value="221006.HK">即月國期</option>
+	<option value="221000.HK.N" >即月夜期</option>
+	<option value="221006.HK.N" >即月夜國</option>
+	<option value="221002.HK">下月期指</option>	
+	<option value="221007.HK">下月國期</option>
+	<option value="221002.HK.N">下月夜期</option>		
+	<option value="221007.HK.N">下月夜國</option>
+	<option value="110000.HK">恆生指數</option>
+        <option value="110010.HK">國企指數</option>
+        <option value="000001.SH">上證指數</option>
+        <option value="00700.HK">騰訊</option>
+  	<option value="00388.HK">港交所</option>
+    </select>
+    <select id="period_id" name="period_id" onChange="javascript:refreshOptions(this);">
+        <option value="5">日線（一個月）</option>
+        <option value="7">日線（三個月）</option>
+        <option value="5000">1 分鐘（一日）</option>
+        <option value="5007">3 分鐘（一日）</option>
+        <option value="0" selected>5 分鐘 （一日）</option>
+        <option value="2">15 分鐘（五日）</option>
+        <option value="3">30 分鐘（十日）</option>
+        <option value="4">小時（十日）</option>
+    </select>
+    <select id="timer_id" name="timer_id" onChange="javascript:refreshOptions(this);">
+       
+        <option value="0">停止更新　　</option>
+	<option value="2000" selected>每２秒更新　　</option>
+        
+    </select>
+    <input type="text" name="rsi1" value="14">
+    <!--<input type="text" name="rsi2">-->
+    <!--<input type="text" name="rsi3">-->
+    <input type="text" name="clock" style="border: 0px" value="" size="100" style="Arial">
+    <BR>
+</form>
+<BR>
+<img src="http://charts.aastocks.com/servlet/Charts?
+scheme=1&
+com=100&
+chartwidth=800&
+chartheight=450&
+stockid=221000.HK&
+period=5007&
+type=1&
+Indicator=0&
+indpara1=10&
+indpara2=20&
+indpara3=50&
+indpara4=150&
+indpara5=100&
+subChart1=1&ref1para1=0&ref1para2=0&ref1para3=0&fontsize=12&15MinDelay=T&lang=1&titlestyle=1&
+subChart2=2&ref2para1=14&ref2para2=14&ref2para3=14&"
+     id="img001"><br>
+<input id="SupText" type="text" name="SupName" style="border: 0px; visibility:hidden;" value="　今天全日ＯＨＬＣ：" size="100"
+       style="Arial">
+
+<div id="SupImg" style="width:800px; height:13px; overflow:hidden; visibility:hidden;">
+    <img style="position:relative; top:-14px; right:458px;"
+         src="http://charts.aastocks.com/servlet/Charts?
+scheme=1&
+com=100&
+chartwidth=800&
+chartheight=450&
+stockid=110000.HK&
+period=5&
+type=1&
+Indicator=0&
+indpara1=10&
+indpara2=20&
+indpara3=50&
+indpara4=150&
+indpara5=100&
+subChart1=1&ref1para1=0&ref1para2=0&ref1para3=0&fontsize=12&15MinDelay=T&lang=1&titlestyle=1&
+subChart2=2&ref2para1=14&ref2para2=14&ref2para3=14&"         id="img002">
+</div>
+</body>
+</html>
+<script type="text/javascript"> refreshOptions(); </script>
